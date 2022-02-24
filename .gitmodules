@@ -1,3 +1,6 @@
 [submodule "SolarGatorsBSP_STM"]
 	path = SolarGatorsBSP_STM
 	url = https://github.com/John-Carr/SolarGatorsBSP_STM
+[submodule "Drivers/SolarGatorsBSP_STM"]
+	path = Drivers/SolarGatorsBSP_STM
+	url = https://github.com/John-Carr/SolarGatorsBSP_STM
