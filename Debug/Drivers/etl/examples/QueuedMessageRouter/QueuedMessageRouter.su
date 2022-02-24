@@ -1,0 +1,99 @@
+new:173:33:void* operator new(std::size_t, void*)	16	static
+gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
+message.h:72:13:etl::imessage::~imessage()	16	static
+message.h:72:13:virtual etl::imessage::~imessage()	16	static
+shared_message.h:82:5:etl::shared_message::shared_message(const etl::shared_message&)	16	static
+shared_message.h:147:5:etl::shared_message::~shared_message()	16	static
+shared_message.h:159:34:etl::imessage& etl::shared_message::get_message()	16	static
+message_router.h:112:13:etl::imessage_router::~imessage_router()	16	static
+message_router.h:112:13:virtual etl::imessage_router::~imessage_router()	16	static
+message_router.h:120:18:virtual void etl::imessage_router::receive(etl::message_router_id_t, const etl::imessage&)	32	static
+message_router.h:129:18:virtual void etl::imessage_router::receive(etl::shared_message)	24	static
+message_router.h:135:18:virtual void etl::imessage_router::receive(etl::message_router_id_t, etl::shared_message)	40	static
+message_router.h:144:10:bool etl::imessage_router::accepts(const etl::imessage&) const	24	static
+message_router.h:150:30:etl::message_router_id_t etl::imessage_router::get_message_router_id() const	16	static
+message_router.h:165:5:etl::imessage_router::imessage_router(etl::message_router_id_t)	16	static
+message_router.h:316:22:void etl::send_message(etl::imessage_router&, const etl::imessage&)	16	static
+message.h:68:9:constexpr etl::imessage::imessage()	16	static
+message.h:83:9:constexpr etl::message<1>::message()	16	static
+message.h:83:9:etl::message<1>::~message()	16	static
+message.h:83:9:virtual etl::message<1>::~message()	16	static
+QueuedMessageRouter.cpp:13:3:Message1::Message1(int)	16	static
+message.h:83:9:constexpr etl::message<2>::message()	16	static
+message.h:83:9:etl::message<2>::~message()	16	static
+message.h:83:9:virtual etl::message<2>::~message()	16	static
+QueuedMessageRouter.cpp:23:3:Message2::Message2(double)	24	static
+message.h:83:9:constexpr etl::message<3>::message()	16	static
+message.h:83:9:etl::message<3>::~message()	16	static
+message.h:83:9:virtual etl::message<3>::~message()	16	static
+QueuedMessageRouter.cpp:33:3:Message3::Message3(const string&)	16	static
+message_router.h:2118:9:etl::message_router<Router, Message1, Message2, Message3>::~message_router()	16	static
+message_router.h:2118:9:virtual etl::message_router<Router, Message1, Message2, Message3>::~message_router()	16	static
+QueuedMessageRouter.cpp:58:3:Router::Router()	16	static
+QueuedMessageRouter.cpp:65:8:virtual void Router::receive(const etl::imessage&)	24	static
+QueuedMessageRouter.cpp:81:8:void Router::process_queue()	32	static
+QueuedMessageRouter.cpp:98:8:void Router::on_receive(const Message1&)	24	static
+QueuedMessageRouter.cpp:104:8:void Router::on_receive(const Message2&)	24	static
+QueuedMessageRouter.cpp:110:8:void Router::on_receive(const Message3&)	24	static
+QueuedMessageRouter.cpp:116:8:void Router::on_receive_unknown(const etl::imessage&)	24	static
+message.h:83:9:constexpr etl::message<4>::message()	16	static
+message.h:83:9:etl::message<4>::~message()	16	static
+message.h:83:9:virtual etl::message<4>::~message()	16	static
+QueuedMessageRouter.cpp:41:8:constexpr Message4::Message4()	16	static
+QueuedMessageRouter.cpp:129:5:int main()	640	static
+successor.h:52:5:etl::successor<T>::successor() [with T = etl::imessage_router]	16	static
+successor.h:84:10:bool etl::successor<T>::has_successor() const [with T = etl::imessage_router]	16	static
+successor.h:76:21:etl::successor<T>::successor_type& etl::successor<T>::get_successor() const [with T = etl::imessage_router]	16	static
+message_router.h:2126:5:etl::message_router<TDerived, T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::message_router(etl::message_router_id_t) [with TDerived = Router; T1 = Message1; T2 = Message2; T3 = Message3]	16	static
+queue.h:597:5:etl::queue<T, SIZE, MEMORY_MODEL>::queue() [with T = etl::message_packet<Message1, Message2, Message3, void, void, void, void, void, void, void, void, void, void, void, void, void>; unsigned int SIZE = 10; unsigned int MEMORY_MODEL = 2]	16	static
+queue.h:625:5:etl::queue<T, SIZE, MEMORY_MODEL>::~queue() [with T = etl::message_packet<Message1, Message2, Message3, void, void, void, void, void, void, void, void, void, void, void, void, void>; unsigned int SIZE = 10; unsigned int MEMORY_MODEL = 2]	16	static
+queue.h:343:10:) [with Args = {const etl::imessage&}; T = etl::message_packet<Message1, Message2, Message3, void, void, void, void, void, void, void, void, void, void, void, void, void>; unsigned int MEMORY_MODEL = 2]	24	static
+queue.h:142:10:bool etl::queue_base<MEMORY_MODEL>::empty() const [with unsigned int MEMORY_MODEL = 2]	16	static
+queue.h:274:15:T& etl::iqueue<T, MEMORY_MODEL>::front() [with T = etl::message_packet<Message1, Message2, Message3, void, void, void, void, void, void, void, void, void, void, void, void, void>; unsigned int MEMORY_MODEL = 2]	16	static
+message_packet.h:4263:20:etl::imessage& etl::message_packet<T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::get() [with T1 = Message1; T2 = Message2; T3 = Message3]	16	static
+message_router.h:2142:10:void etl::message_router<TDerived, T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::receive(const etl::imessage&) [with TDerived = Router; T1 = Message1; T2 = Message2; T3 = Message3]	24	static
+queue.h:440:10:void etl::iqueue<T, MEMORY_MODEL>::pop() [with T = etl::message_packet<Message1, Message2, Message3, void, void, void, void, void, void, void, void, void, void, void, void, void>; unsigned int MEMORY_MODEL = 2]	16	static
+message.h:94:37:etl::message_id_t etl::message<ID_, TParent>::get_message_id() const [with unsigned char ID_ = 1; TParent = etl::imessage]	16	static
+message.h:94:37:etl::message_id_t etl::message<ID_, TParent>::get_message_id() const [with unsigned char ID_ = 2; TParent = etl::imessage]	16	static
+message.h:94:37:etl::message_id_t etl::message<ID_, TParent>::get_message_id() const [with unsigned char ID_ = 3; TParent = etl::imessage]	16	static
+queue.h:541:5:etl::iqueue<T, MEMORY_MODEL>::iqueue(T*, etl::iqueue<T, MEMORY_MODEL>::size_type) [with T = etl::message_packet<Message1, Message2, Message3, void, void, void, void, void, void, void, void, void, void, void, void, void>; unsigned int MEMORY_MODEL = 2]	24	static
+queue.h:564:5:etl::iqueue<T, MEMORY_MODEL>::~iqueue() [with T = etl::message_packet<Message1, Message2, Message3, void, void, void, void, void, void, void, void, void, void, void, void, void>; unsigned int MEMORY_MODEL = 2]	16	static
+queue.h:416:10:void etl::iqueue<T, MEMORY_MODEL>::clear() [with T = etl::message_packet<Message1, Message2, Message3, void, void, void, void, void, void, void, void, void, void, void, void, void>; unsigned int MEMORY_MODEL = 2]	16	static
+utility.h:60:17:constexpr T&& etl::forward(typename etl::remove_reference<T>::type&) [with T = const etl::imessage&]	16	static
+message_packet.h:4287:31:static constexpr bool etl::message_packet<T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::accepts(const etl::imessage&) [with T1 = Message1; T2 = Message2; T3 = Message3]	16	static
+message_packet.h:4134:14:etl::message_packet<T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::message_packet(const etl::imessage&) [with T1 = Message1; T2 = Message2; T3 = Message3]	16	static
+queue.h:188:10:void etl::queue_base<MEMORY_MODEL>::add_in() [with unsigned int MEMORY_MODEL = 2]	16	static
+alignment.h:139:7:etl::aligned_storage<LENGTH, ALIGNMENT>::type::operator T*() [with T = etl::imessage; unsigned int LENGTH = 28; unsigned int ALIGNMENT = 8]	16	static
+message_packet.h:4257:5:etl::message_packet<T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::~message_packet() [with T1 = Message1; T2 = Message2; T3 = Message3]	16	static
+queue.h:202:10:void etl::queue_base<MEMORY_MODEL>::del_out() [with unsigned int MEMORY_MODEL = 2]	16	static
+queue.h:170:5:etl::queue_base<MEMORY_MODEL>::queue_base(etl::queue_base<MEMORY_MODEL>::size_type) [with unsigned int MEMORY_MODEL = 2]	16	static
+queue.h:181:5:etl::queue_base<MEMORY_MODEL>::~queue_base() [with unsigned int MEMORY_MODEL = 2]	16	static
+message_packet.h:4281:31:static constexpr bool etl::message_packet<T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::accepts(etl::message_id_t) [with T1 = Message1; T2 = Message2; T3 = Message3]	16	static
+message.h:68:9:constexpr etl::imessage::imessage(const etl::imessage&)	16	static
+message.h:83:9:constexpr etl::message<1>::message(const etl::message<1>&)	16	static
+QueuedMessageRouter.cpp:11:8:constexpr Message1::Message1(const Message1&)	16	static
+message.h:83:9:constexpr etl::message<2>::message(const etl::message<2>&)	16	static
+QueuedMessageRouter.cpp:21:8:constexpr Message2::Message2(const Message2&)	16	static
+message.h:83:9:constexpr etl::message<3>::message(const etl::message<3>&)	16	static
+QueuedMessageRouter.cpp:31:8:Message3::Message3(const Message3&)	16	static
+message_packet.h:4342:10:void etl::message_packet<T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::add_new_message(const etl::imessage&) [with T1 = Message1; T2 = Message2; T3 = Message3]	24	static
+message_packet.h:4319:10:void etl::message_packet<T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::delete_current_message() [with T1 = Message1; T2 = Message2; T3 = Message3]	24	static
+alignment.h:139:7:etl::aligned_storage<LENGTH, ALIGNMENT>::type::operator T*() [with T = void; unsigned int LENGTH = 28; unsigned int ALIGNMENT = 8]	16	static
+QueuedMessageRouter.cpp:49:7:Router::~Router()	16	static
+QueuedMessageRouter.cpp:49:7:virtual Router::~Router()	16	static
+QueuedMessageRouter.cpp:41:8:Message4::~Message4()	16	static
+QueuedMessageRouter.cpp:41:8:virtual Message4::~Message4()	16	static
+QueuedMessageRouter.cpp:31:8:Message3::~Message3()	16	static
+QueuedMessageRouter.cpp:31:8:virtual Message3::~Message3()	16	static
+QueuedMessageRouter.cpp:21:8:Message2::~Message2()	16	static
+QueuedMessageRouter.cpp:21:8:virtual Message2::~Message2()	16	static
+QueuedMessageRouter.cpp:11:8:Message1::~Message1()	16	static
+QueuedMessageRouter.cpp:11:8:virtual Message1::~Message1()	16	static
+QueuedMessageRouter.cpp:150:1:void __static_initialization_and_destruction_0(int, int)	16	static
+message_router.h:2189:10:bool etl::message_router<TDerived, T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::accepts(etl::message_id_t) const [with TDerived = Router; T1 = Message1; T2 = Message2; T3 = Message3]	16	static
+message_router.h:2211:25:bool etl::message_router<TDerived, T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::is_null_router() const [with TDerived = Router; T1 = Message1; T2 = Message2; T3 = Message3]	16	static
+message_router.h:2217:10:bool etl::message_router<TDerived, T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::is_producer() const [with TDerived = Router; T1 = Message1; T2 = Message2; T3 = Message3]	16	static
+message_router.h:2223:10:bool etl::message_router<TDerived, T1, T2, T3, void, void, void, void, void, void, void, void, void, void, void, void, void>::is_consumer() const [with TDerived = Router; T1 = Message1; T2 = Message2; T3 = Message3]	16	static
+message.h:94:37:etl::message_id_t etl::message<ID_, TParent>::get_message_id() const [with unsigned char ID_ = 4; TParent = etl::imessage]	16	static
+QueuedMessageRouter.cpp:150:1:cpp)	8	static
+QueuedMessageRouter.cpp:150:1:cpp)	8	static
