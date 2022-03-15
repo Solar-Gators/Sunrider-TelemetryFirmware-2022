@@ -46,6 +46,20 @@ void CPP_UserSetup(void)
   // Start Timers
   osTimerStart(telem_tx_timer_id, 1000);
   osTimerStart(can_tx_timer_id, 100);
+  accel.SetRefVcc();
+  regen.SetRefVcc();
+  for(int i = 0; i < 25600; i++)
+  {
+    accel.WriteAndUpdate(i % 0xFF);
+    osDelay(50);
+  }
+  for(int i = 0; i < 25600; i++)
+  {
+    regen.WriteAndUpdate(i % 0xFF);
+    osDelay(50);
+  }
+  regen.WriteAndUpdate(0);
+  accel.WriteAndUpdate(0);
 }
 
 void SendCanMsgs()
@@ -64,4 +78,9 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
   CANController.SetRxFlag();
   HAL_CAN_DeactivateNotification(hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
+}
+
+void UpdateDACs()
+{
+
 }

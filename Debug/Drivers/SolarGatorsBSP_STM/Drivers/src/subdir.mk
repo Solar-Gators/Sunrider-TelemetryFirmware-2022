@@ -9,6 +9,7 @@ CPP_SRCS += \
 ../Drivers/SolarGatorsBSP_STM/Drivers/src/Button.cpp \
 ../Drivers/SolarGatorsBSP_STM/Drivers/src/CAN.cpp \
 ../Drivers/SolarGatorsBSP_STM/Drivers/src/LED.cpp \
+../Drivers/SolarGatorsBSP_STM/Drivers/src/LTC2630.cpp \
 ../Drivers/SolarGatorsBSP_STM/Drivers/src/MPU6050.cpp \
 ../Drivers/SolarGatorsBSP_STM/Drivers/src/PitComms.cpp \
 ../Drivers/SolarGatorsBSP_STM/Drivers/src/RFD900x.cpp \
@@ -20,6 +21,7 @@ OBJS += \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/Button.o \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/CAN.o \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/LED.o \
+./Drivers/SolarGatorsBSP_STM/Drivers/src/LTC2630.o \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/MPU6050.o \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/PitComms.o \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/RFD900x.o \
@@ -31,6 +33,7 @@ CPP_DEPS += \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/Button.d \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/CAN.d \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/LED.d \
+./Drivers/SolarGatorsBSP_STM/Drivers/src/LTC2630.d \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/MPU6050.d \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/PitComms.d \
 ./Drivers/SolarGatorsBSP_STM/Drivers/src/RFD900x.d \
@@ -45,7 +48,7 @@ Drivers/SolarGatorsBSP_STM/Drivers/src/%.o: ../Drivers/SolarGatorsBSP_STM/Driver
 clean: clean-Drivers-2f-SolarGatorsBSP_STM-2f-Drivers-2f-src
 
 clean-Drivers-2f-SolarGatorsBSP_STM-2f-Drivers-2f-src:
-	-$(RM) ./Drivers/SolarGatorsBSP_STM/Drivers/src/AsciiLib.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/AsciiLib.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/Button.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/Button.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/CAN.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/CAN.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/LED.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/LED.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/MPU6050.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/MPU6050.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/PitComms.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/PitComms.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/RFD900x.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/RFD900x.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/Radio.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/Radio.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/UI.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/UI.o
+	-$(RM) ./Drivers/SolarGatorsBSP_STM/Drivers/src/AsciiLib.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/AsciiLib.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/Button.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/Button.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/CAN.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/CAN.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/LED.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/LED.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/LTC2630.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/LTC2630.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/MPU6050.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/MPU6050.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/PitComms.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/PitComms.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/RFD900x.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/RFD900x.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/Radio.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/Radio.o ./Drivers/SolarGatorsBSP_STM/Drivers/src/UI.d ./Drivers/SolarGatorsBSP_STM/Drivers/src/UI.o
 
 .PHONY: clean-Drivers-2f-SolarGatorsBSP_STM-2f-Drivers-2f-src
 

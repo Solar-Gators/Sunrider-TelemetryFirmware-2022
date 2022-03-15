@@ -3,12 +3,16 @@
 #define USER_HPP_
 
 #include "main.h"
+
 // Drivers
 #include "CAN.hpp"
 #include "RFD900x.hpp"
 #include "PitComms.hpp"
+#include "LTC2630.hpp"
+
 // Data Module Info
 #include "DataModuleInfo.hpp"
+
 // Data Modules
 #include "Steering.hpp"
 #include "OrionBMS.hpp"
@@ -17,10 +21,15 @@
 
 extern CAN_HandleTypeDef hcan;
 extern UART_HandleTypeDef huart2;
+extern SPI_HandleTypeDef hspi2;
 
 SolarGators::Drivers::CANDriver CANController(&hcan, 0);
 SolarGators::Drivers::RFD900x rfd(&huart2);
 SolarGators::Drivers::PitComms pit(&rfd);
+
+// DACs
+SolarGators::Drivers::LTC2630 accel(&hspi2, Accel_CS_GPIO_Port, Accel_CS_Pin, SolarGators::Drivers::OperatingMode::Bit8);
+SolarGators::Drivers::LTC2630 regen(&hspi2, Regen_CS_GPIO_Port, Regen_CS_Pin, SolarGators::Drivers::OperatingMode::Bit8);
 
 // Objects we want to get status on
 // TODO: Steering
