@@ -36,7 +36,7 @@ SolarGators::Drivers::LTC2630 regen(&hspi2, Regen_CS_GPIO_Port, Regen_CS_Pin, So
 SolarGators::DataModules::MitsubaRequest motor_request(SolarGators::DataModuleInfo::MOTORTX_RL_MSG_ID);
 
 // Objects that we will want to send data to the pit on
-SolarGators::DataModules::OrionBMS bms(SolarGators::DataModuleInfo::Orion_Id);
+SolarGators::DataModules::OrionBMS bms(SolarGators::DataModuleInfo::Orion_Id, 0);
 SolarGators::DataModules::MitsubaRx0 motor_rx_0(SolarGators::DataModuleInfo::MOTORRX0_RL_MSG_ID, 0x04);
 // TODO: Mppt1
 // TODO: Mppt2

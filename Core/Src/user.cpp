@@ -27,6 +27,8 @@ osTimerAttr_t telem_tx_timer_attr =
     .name = "Telemetry"
 };
 
+uint8_t DAC_OUT_TEST = 0;
+
 void CPP_UserSetup(void)
 {
   // Software Timer that sends telemetry data
@@ -42,23 +44,14 @@ void CPP_UserSetup(void)
       Error_Handler();
   }
   CANController.AddRxModule(&motor_rx_0);
+  CANController.AddRxModule(&bms);
   CANController.Init();
   // Start Timers
   osTimerStart(telem_tx_timer_id, 1000);
   osTimerStart(can_tx_timer_id, 100);
   accel.SetRefVcc();
   regen.SetRefVcc();
-  for(int i = 0; i < 25600; i++)
-  {
-    accel.WriteAndUpdate(i % 0xFF);
-    osDelay(50);
-  }
-  for(int i = 0; i < 25600; i++)
-  {
-    regen.WriteAndUpdate(i % 0xFF);
-    osDelay(50);
-  }
-  regen.WriteAndUpdate(0);
+  regen.WriteAndUpdate(DAC_OUT_TEST);
   accel.WriteAndUpdate(0);
 }
 
@@ -72,6 +65,7 @@ void SendCanMsgs()
 void SendTelemetryData()
 {
   pit.SendDataModule(motor_rx_0);
+  regen.WriteAndUpdate(DAC_OUT_TEST);
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
