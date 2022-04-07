@@ -27,54 +27,61 @@ osTimerAttr_t telem_tx_timer_attr =
     .name = "Telemetry"
 };
 
-uint8_t DAC_OUT_TEST = 0;
+float TEST = 0.0;
 
 void CPP_UserSetup(void)
 {
-  // Software Timer that sends telemetry data
+  // Initialize routine that sends telemetry data
   telem_tx_timer_id = osTimerNew((osThreadFunc_t)SendTelemetryData, osTimerPeriodic, NULL, &telem_tx_timer_attr);
   if (telem_tx_timer_id == NULL)
   {
       Error_Handler();
   }
-  // Start Thread that sends CAN Data
+  // Initialize routine that sends CAN Data
   can_tx_timer_id = osTimerNew((osThreadFunc_t)SendCanMsgs, osTimerPeriodic, NULL, &can_tx_timer_attr);
   if (can_tx_timer_id == NULL)
   {
       Error_Handler();
   }
-  CANController.AddRxModule(&motor_rx_0);
-  CANController.AddRxModule(&bms);
+  // Mitsuba Stuff
+  CANController.AddRxModule(&Motor_Rx_0);
+  CANController.AddRxModule(&Motor_Rx_1);
+  CANController.AddRxModule(&Motor_Rx_2);
+  // Orion Stuff
+  CANController.AddRxModule(&BMS_Rx_0);
+  CANController.AddRxModule(&BMS_Rx_1);
+  CANController.AddRxModule(&BMS_Rx_2);
+  CANController.AddRxModule(&BMS_Rx_3);
+  CANController.AddRxModule(&BMS_Rx_4);
+  CANController.AddRxModule(&BMS_Rx_5);
+  // Ready CAN
   CANController.Init();
   // Start Timers
-  osTimerStart(telem_tx_timer_id, 1000);
-  osTimerStart(can_tx_timer_id, 100);
+  osTimerStart(telem_tx_timer_id, 1000);  // Pit Transmission
+  osTimerStart(can_tx_timer_id, 5000);    // CAN Tx Transmission
+  // Initialize DACs
   accel.SetRefVcc();
   regen.SetRefVcc();
-  regen.WriteAndUpdate(DAC_OUT_TEST);
+  regen.WriteAndUpdate(0);
   accel.WriteAndUpdate(0);
 }
 
 void SendCanMsgs()
 {
   // Request Mitsuba Data
-  motor_request.SetRequestAllFrames();
-  CANController.Send(&motor_request);
+  Motor_Tx.SetRequestAllFrames();
+  CANController.Send(&Motor_Tx);
 }
 
 void SendTelemetryData()
 {
-  pit.SendDataModule(motor_rx_0);
-  regen.WriteAndUpdate(DAC_OUT_TEST);
+  pit.SendDataModule(Motor_Rx_0);
+  TEST = BMS_Rx_0.getAvgCellVolt();
+  TEST = BMS_Rx_4.getPackSoc();
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
   CANController.SetRxFlag();
   HAL_CAN_DeactivateNotification(hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
-}
-
-void UpdateDACs()
-{
-
 }

@@ -33,11 +33,19 @@ SolarGators::Drivers::LTC2630 regen(&hspi2, Regen_CS_GPIO_Port, Regen_CS_Pin, So
 
 // Objects we want to get status on
 // TODO: Steering
-SolarGators::DataModules::MitsubaRequest motor_request(SolarGators::DataModuleInfo::MOTORTX_RL_MSG_ID);
+SolarGators::DataModules::MitsubaRequest Motor_Tx(SolarGators::DataModuleInfo::MOTORTX_RL_MSG_ID);
 
 // Objects that we will want to send data to the pit on
-SolarGators::DataModules::OrionBMS bms(SolarGators::DataModuleInfo::Orion_Id, 0);
-SolarGators::DataModules::MitsubaRx0 motor_rx_0(SolarGators::DataModuleInfo::MOTORRX0_RL_MSG_ID, 0x04);
+SolarGators::DataModules::OrionBMSRx0 BMS_Rx_0(SolarGators::DataModuleInfo::BMS_RX0_MSG_ID, 0);
+SolarGators::DataModules::OrionBMSRx1 BMS_Rx_1(SolarGators::DataModuleInfo::BMS_RX1_MSG_ID, 0);
+SolarGators::DataModules::OrionBMSRx2 BMS_Rx_2(SolarGators::DataModuleInfo::BMS_RX2_MSG_ID, 0);
+SolarGators::DataModules::OrionBMSRx3 BMS_Rx_3(SolarGators::DataModuleInfo::BMS_RX3_MSG_ID, 0);
+SolarGators::DataModules::OrionBMSRx4 BMS_Rx_4(SolarGators::DataModuleInfo::BMS_RX4_MSG_ID, 0);
+SolarGators::DataModules::OrionBMSRx5 BMS_Rx_5(SolarGators::DataModuleInfo::BMS_RX5_MSG_ID, 0);
+
+SolarGators::DataModules::MitsubaRx0 Motor_Rx_0(SolarGators::DataModuleInfo::MOTORRX0_RL_MSG_ID, 0x04);
+SolarGators::DataModules::MitsubaRx1 Motor_Rx_1(SolarGators::DataModuleInfo::MOTORRX1_RL_MSG_ID, 0x04);
+SolarGators::DataModules::MitsubaRx2 Motor_Rx_2(SolarGators::DataModuleInfo::MOTORRX2_RL_MSG_ID, 0x04);
 // TODO: Mppt1
 // TODO: Mppt2
 // TODO: Mppt3
