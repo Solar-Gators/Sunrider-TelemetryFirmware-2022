@@ -100,6 +100,9 @@ void UpdateThrottle()
   // Probs dont want to do the below would be better to drop two bits then map 12 bits to 18 bits
   accel.WriteAndUpdate(FLights.GetThrottleVal() >> 6); // shift over b\c we are sending 14 bit ADC to 8 bit DAC
 //  TODO: if the throttle is 0 then we should regen so that we are hitting a 0.2g *deceleration* PID?
+  // Read IMU to get accel info for PID
+  LSM6DSR_Axes_t accel_info;
+  LSM6DSR_ACC_GetAxes(&imu, &accel_info);
   //  regen.WriteAndUpdate(REGEN_OUT);
 }
 

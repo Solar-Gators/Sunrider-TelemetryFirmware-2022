@@ -4,6 +4,10 @@
 
 #include "main.h"
 
+// IMU Includes
+#include "lsm6dsr.h"
+#include "custom_bus.h"
+
 // Drivers
 #include "CAN.hpp"
 #include "RFD900x.hpp"
@@ -32,6 +36,19 @@ SolarGators::Drivers::PitComms pit(&rfd);
 // DACs
 SolarGators::Drivers::LTC2630 accel(&hspi2, Accel_CS_GPIO_Port, Accel_CS_Pin, SolarGators::Drivers::OperatingMode::Bit8);
 SolarGators::Drivers::LTC2630 regen(&hspi2, Regen_CS_GPIO_Port, Regen_CS_Pin, SolarGators::Drivers::OperatingMode::Bit8);
+
+// IMU
+LSM6DSR_IO_t imu_bus =
+    {
+        .Init = BSP_I2C2_Init,
+        .DeInit = BSP_I2C2_DeInit,
+        .BusType = LSM6DSR_I2C_BUS,
+        .Address = LSM6DSR_I2C_ADD_H,
+        .WriteReg = BSP_I2C2_WriteReg,
+        .ReadReg = BSP_I2C2_ReadReg,
+        .GetTick = BSP_GetTick
+    };
+LSM6DSR_Object_t imu;
 
 // Objects we want to get status on
 // TODO: Steering
