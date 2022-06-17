@@ -28,6 +28,8 @@ osTimerAttr_t telem_tx_timer_attr =
 };
 
 float TEST = 0.0;
+uint8_t ACCEL_OUT = 0;
+uint8_t REGEN_OUT = 0;
 
 void CPP_UserSetup(void)
 {
@@ -62,8 +64,6 @@ void CPP_UserSetup(void)
   // Initialize DACs
   accel.SetRefVcc();
   regen.SetRefVcc();
-  regen.WriteAndUpdate(0);
-  accel.WriteAndUpdate(0);
 }
 
 void SendCanMsgs()
@@ -71,6 +71,8 @@ void SendCanMsgs()
   // Request Mitsuba Data
   Motor_Tx.SetRequestAllFrames();
   CANController.Send(&Motor_Tx);
+  accel.WriteAndUpdate(ACCEL_OUT);
+  regen.WriteAndUpdate(REGEN_OUT);
 }
 
 void SendTelemetryData()

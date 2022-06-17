@@ -15,6 +15,8 @@
 
 // Data Modules
 #include "Steering.hpp"
+#include "FrontLights.hpp"
+#include "RearLights.hpp"
 #include "OrionBMS.hpp"
 #include "Proton1.hpp"
 #include "Mitsuba.hpp"
@@ -33,6 +35,8 @@ SolarGators::Drivers::LTC2630 regen(&hspi2, Regen_CS_GPIO_Port, Regen_CS_Pin, So
 
 // Objects we want to get status on
 // TODO: Steering
+SolarGators::DataModules::FrontLights FLights();
+SolarGators::DataModules::RearLights RLights();
 SolarGators::DataModules::MitsubaRequest Motor_Tx(SolarGators::DataModuleInfo::MOTORTX_RL_MSG_ID);
 
 // Objects that we will want to send data to the pit on
