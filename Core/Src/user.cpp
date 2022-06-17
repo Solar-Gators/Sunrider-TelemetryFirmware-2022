@@ -14,6 +14,7 @@ extern "C" void CPP_UserSetup(void);
 void SendCanMsgs();
 void SendTelemetryData();
 void UpdateThrottle();
+uint8_t CalcRegen();
 
 // OS Configs
 /* Definitions for CAN Tx Thread */
@@ -97,13 +98,27 @@ void SendTelemetryData()
 
 void UpdateThrottle()
 {
+  uint8_t adjThrottleVal = static_cast<uint8_t>(FLights.GetThrottleVal() >> 6);
   // Probs dont want to do the below would be better to drop two bits then map 12 bits to 18 bits
-  accel.WriteAndUpdate(FLights.GetThrottleVal() >> 6); // shift over b\c we are sending 14 bit ADC to 8 bit DAC
-//  TODO: if the throttle is 0 then we should regen so that we are hitting a 0.2g *deceleration* PID?
-  // Read IMU to get accel info for PID
-  LSM6DSR_Axes_t accel_info;
-  LSM6DSR_ACC_GetAxes(&imu, &accel_info);
-  //  regen.WriteAndUpdate(REGEN_OUT);
+  accel.WriteAndUpdate(adjThrottleVal); // shift over b\c we are sending 14 bit ADC to 8 bit DAC
+  // If the throttle is 0 then we should regen so that we are hitting a 0.2g *deceleration*
+  // TODO: Should probably have a && REGEN_ENABLED
+  if(adjThrottleVal == 0)
+  {
+    // Read IMU to get accel info for PID
+    LSM6DSR_Axes_t accel_info;
+    LSM6DSR_ACC_GetAxes(&imu, &accel_info);
+    // Calculate regen value
+    // Write regen value to motor controller
+    uint8_t regenVal = CalcRegen();
+    regen.WriteAndUpdate(regenVal);
+  }
+}
+
+uint8_t CalcRegen()
+{
+  // TODO: PID Controller
+  return UINT8_MAX;
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
