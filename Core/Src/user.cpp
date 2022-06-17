@@ -13,6 +13,7 @@ extern "C" void CPP_UserSetup(void);
 
 void SendCanMsgs();
 void SendTelemetryData();
+void UpdateThrottle();
 
 // OS Configs
 /* Definitions for CAN Tx Thread */
@@ -25,6 +26,11 @@ osTimerId_t telem_tx_timer_id;
 osTimerAttr_t telem_tx_timer_attr =
 {
     .name = "Telemetry"
+};
+osTimerId_t speed_control_timer_id;
+osTimerAttr_t speed_control_timer_attr =
+{
+    .name = "Speed"
 };
 
 float TEST = 0.0;
@@ -45,6 +51,15 @@ void CPP_UserSetup(void)
   {
       Error_Handler();
   }
+  // Initialize routine that updates regen and throttle
+  speed_control_timer_id = osTimerNew((osThreadFunc_t)UpdateThrottle, osTimerPeriodic, NULL, &speed_control_timer_attr);
+  if (speed_control_timer_id == NULL)
+  {
+      Error_Handler();
+  }
+  // Front Lights (for throttle)
+  CANController.AddRxModule(&FLights);
+  CANController.AddRxModule(&RLights);
   // Mitsuba Stuff
   CANController.AddRxModule(&Motor_Rx_0);
   CANController.AddRxModule(&Motor_Rx_1);
@@ -71,8 +86,6 @@ void SendCanMsgs()
   // Request Mitsuba Data
   Motor_Tx.SetRequestAllFrames();
   CANController.Send(&Motor_Tx);
-  accel.WriteAndUpdate(ACCEL_OUT);
-  regen.WriteAndUpdate(REGEN_OUT);
 }
 
 void SendTelemetryData()
@@ -80,6 +93,14 @@ void SendTelemetryData()
   pit.SendDataModule(Motor_Rx_0);
   TEST = BMS_Rx_0.getAvgCellVolt();
   TEST = BMS_Rx_4.getPackSoc();
+}
+
+void UpdateThrottle()
+{
+  // Probs dont want to do the below would be better to drop two bits then map 12 bits to 18 bits
+  accel.WriteAndUpdate(FLights.GetThrottleVal() >> 6); // shift over b\c we are sending 14 bit ADC to 8 bit DAC
+//  TODO: if the throttle is 0 then we should regen so that we are hitting a 0.2g *deceleration* PID?
+  //  regen.WriteAndUpdate(REGEN_OUT);
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
