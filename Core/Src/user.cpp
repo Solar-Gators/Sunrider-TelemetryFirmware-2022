@@ -14,7 +14,7 @@ extern "C" void CPP_UserSetup(void);
 void SendCanMsgs();
 void SendTelemetryData();
 void UpdateThrottle();
-uint8_t CalcRegen();
+uint8_t CalcRegen(float* acceleration);
 
 // OS Configs
 /* Definitions for CAN Tx Thread */
@@ -34,9 +34,7 @@ osTimerAttr_t speed_control_timer_attr =
     .name = "Speed"
 };
 
-float TEST = 0.0;
-uint8_t ACCEL_OUT = 0;
-uint8_t REGEN_OUT = 0;
+
 
 void CPP_UserSetup(void)
 {
@@ -80,6 +78,7 @@ void CPP_UserSetup(void)
   // Initialize DACs
   accel.SetRefVcc();
   regen.SetRefVcc();
+  osTimerStart(speed_control_timer_id, 100);    // Mitsuba throttle and regen
 }
 
 void SendCanMsgs()
@@ -92,8 +91,8 @@ void SendCanMsgs()
 void SendTelemetryData()
 {
   pit.SendDataModule(Motor_Rx_0);
-  TEST = BMS_Rx_0.getAvgCellVolt();
-  TEST = BMS_Rx_4.getPackSoc();
+//  TEST = BMS_Rx_0.getAvgCellVolt();
+//  TEST = BMS_Rx_4.getPackSoc();
 }
 
 void UpdateThrottle()
@@ -105,20 +104,32 @@ void UpdateThrottle()
   // TODO: Should probably have a && REGEN_ENABLED
   if(adjThrottleVal == 0)
   {
-    // Read IMU to get accel info for PID
-    LSM6DSR_Axes_t accel_info;
-    LSM6DSR_ACC_GetAxes(&imu, &accel_info);
-    // Calculate regen value
-    // Write regen value to motor controller
-    uint8_t regenVal = CalcRegen();
-    regen.WriteAndUpdate(regenVal);
+//    // Read IMU to get accel info for PID
+//    LSM6DSR_Axes_t accel_info;
+//    LSM6DSR_ACC_GetAxes(&imu, &accel_info);
+//    // Calculate regen value
+//    // Write regen value to motor controller
+//    uint8_t regenVal = 0; // CalcRegen();
+//    regen.WriteAndUpdate(regenVal);
   }
 }
 
-uint8_t CalcRegen()
+uint8_t CalcRegen(float* acceleration)
 {
-  // TODO: PID Controller
-  return UINT8_MAX;
+  // Variables (Static to keep off of stack)
+  static float goal = 0.2;   // goal deceleration
+  static uint16_t Pgain=1275; // proportional control gain
+  static uint16_t Igain=2;    // integral control gain
+  static uint16_t Dgain=50;   // derivative control gain
+  // Calculate error
+  float error = goal - acceleration[0]; // goal - most recent acceleration value
+  // Proportion control
+  float prop = Pgain*error;
+  float deriv = 0; // TODO: Calc mean of the acceleration
+  // Derivative control
+  float D = Dgain*deriv;
+  // Volume to regen
+  return prop - D;
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
