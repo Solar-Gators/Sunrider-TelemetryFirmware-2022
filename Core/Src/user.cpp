@@ -91,6 +91,8 @@ void SendCanMsgs()
 void SendTelemetryData()
 {
   pit.SendDataModule(Motor_Rx_0);
+  pit.SendDataModule(BMS_Rx_0);
+  pit.SendDataModule(BMS_Rx_4);
 //  TEST = BMS_Rx_0.getAvgCellVolt();
 //  TEST = BMS_Rx_4.getPackSoc();
 }
