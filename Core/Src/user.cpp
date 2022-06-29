@@ -6,6 +6,7 @@
  */
 
 #include "user.hpp"
+#include "PID.hpp"
 
 using namespace SolarGators;
 
@@ -28,13 +29,18 @@ osTimerAttr_t telem_tx_timer_attr =
 {
     .name = "Telemetry"
 };
+// Global variables for speed control
 osTimerId_t speed_control_timer_id;
 osTimerAttr_t speed_control_timer_attr =
 {
     .name = "Speed"
 };
+static constexpr uint32_t speed_control_period = 100;
+static constexpr float Pgain=1275;  // proportional control gain
+static constexpr float Igain=2;     // integral control gain
+static constexpr float Dgain=50;    // derivative control gain
 
-
+SolarGators::Drivers::PID regen_controller(Pgain, Igain, Dgain, speed_control_period);
 
 void CPP_UserSetup(void)
 {
@@ -55,6 +61,19 @@ void CPP_UserSetup(void)
   if (speed_control_timer_id == NULL)
   {
       Error_Handler();
+  }
+  // Register initialize driver for IMU
+  if(LSM6DSR_RegisterBusIO(&imu, &imu_bus))
+  {
+    Error_Handler();
+  }
+  if(LSM6DSR_Init(&imu))
+  {
+    Error_Handler();
+  }
+  if(LSM6DSR_ACC_Enable(&imu))
+  {
+    Error_Handler();
   }
   // Front Lights (for throttle)
   CANController.AddRxModule(&FLights);
@@ -78,7 +97,12 @@ void CPP_UserSetup(void)
   // Initialize DACs
   accel.SetRefVcc();
   regen.SetRefVcc();
-  osTimerStart(speed_control_timer_id, 100);    // Mitsuba throttle and regen
+  // Initialize PID Controller
+  regen_controller.SetOutLimits(0, 255);
+  regen_controller.SetIntegLimits(0, 255);
+  regen_controller.SetFilter(0);
+  // Start the thread that will update the motor controller
+  osTimerStart(speed_control_timer_id, speed_control_period);    // Mitsuba throttle and regen
 }
 
 void SendCanMsgs()
@@ -101,35 +125,16 @@ void UpdateThrottle()
   // Probs dont want to do the below would be better to drop two bits then map 12 bits to 18 bits
   accel.WriteAndUpdate(adjThrottleVal); // shift over b\c we are sending 14 bit ADC to 8 bit DAC
   // If the throttle is 0 then we should regen so that we are hitting a 0.2g *deceleration*
-  // TODO: Should probably have a && REGEN_ENABLED
-  if(adjThrottleVal == 0)
-  {
-//    // Read IMU to get accel info for PID
-//    LSM6DSR_Axes_t accel_info;
-//    LSM6DSR_ACC_GetAxes(&imu, &accel_info);
-//    // Calculate regen value
-//    // Write regen value to motor controller
-//    uint8_t regenVal = 0; // CalcRegen();
+  // Read IMU to get accel info for PID
+//  LSM6DSR_Axes_t accel_info;
+//  LSM6DSR_ACC_GetAxes(&imu, &accel_info);
+  // Calculate regen value
+  // Write regen value to motor controller
+//  regen_controller.Update(0.2, accel_info.x);
+//  if(adjThrottleVal == 0)
+//  {
 //    regen.WriteAndUpdate(regenVal);
-  }
-}
-
-uint8_t CalcRegen(float* acceleration)
-{
-  // Variables (Static to keep off of stack)
-  static float goal = 0.2;   // goal deceleration
-  static uint16_t Pgain=1275; // proportional control gain
-  static uint16_t Igain=2;    // integral control gain
-  static uint16_t Dgain=50;   // derivative control gain
-  // Calculate error
-  float error = goal - acceleration[0]; // goal - most recent acceleration value
-  // Proportion control
-  float prop = Pgain*error;
-  float deriv = 0; // TODO: Calc mean of the acceleration
-  // Derivative control
-  float D = Dgain*deriv;
-  // Volume to regen
-  return prop - D;
+//  }
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
