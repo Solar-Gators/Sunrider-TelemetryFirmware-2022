@@ -115,13 +115,15 @@ void SendCanMsgs()
 void SendTelemetryData()
 {
   pit.SendDataModule(Motor_Rx_0);
+  pit.SendDataModule(BMS_Rx_0);
+  pit.SendDataModule(BMS_Rx_4);
 //  TEST = BMS_Rx_0.getAvgCellVolt();
 //  TEST = BMS_Rx_4.getPackSoc();
 }
 
 void UpdateThrottle()
 {
-  uint8_t adjThrottleVal = static_cast<uint8_t>(FLights.GetThrottleVal() >> 6);
+  uint8_t adjThrottleVal = static_cast<uint8_t>(FLights.GetThrottleVal() >> 5);
   // Probs dont want to do the below would be better to drop two bits then map 12 bits to 18 bits
   accel.WriteAndUpdate(adjThrottleVal); // shift over b\c we are sending 14 bit ADC to 8 bit DAC
   // If the throttle is 0 then we should regen so that we are hitting a 0.2g *deceleration*
