@@ -63,18 +63,18 @@ void CPP_UserSetup(void)
       Error_Handler();
   }
   // Register initialize driver for IMU
-  if(LSM6DSR_RegisterBusIO(&imu, &imu_bus))
-  {
-    Error_Handler();
-  }
-  if(LSM6DSR_Init(&imu))
-  {
-    Error_Handler();
-  }
-  if(LSM6DSR_ACC_Enable(&imu))
-  {
-    Error_Handler();
-  }
+//  if(LSM6DSR_RegisterBusIO(&imu, &imu_bus))
+//  {
+//    Error_Handler();
+//  }
+//  if(LSM6DSR_Init(&imu))
+//  {
+//    Error_Handler();
+//  }
+//  if(LSM6DSR_ACC_Enable(&imu))
+//  {
+//    Error_Handler();
+//  }
   // Front Lights (for throttle)
   CANController.AddRxModule(&FLights);
   CANController.AddRxModule(&RLights);
@@ -137,6 +137,18 @@ void UpdateThrottle()
 //  {
 //    regen.WriteAndUpdate(regenVal);
 //  }
+  if(Steering.GetEcoEnabledStatus())
+  {
+    eco.TurnOn();
+  }
+  else
+  {
+    eco.TurnOff();
+  }
+  if(Steering.GetReverseStatus())
+  {
+    // TODO
+  }
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)

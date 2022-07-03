@@ -13,6 +13,7 @@
 #include "RFD900x.hpp"
 #include "PitComms.hpp"
 #include "LTC2630.hpp"
+#include "LED.hpp"
 
 // Data Module Info
 #include "DataModuleInfo.hpp"
@@ -37,6 +38,9 @@ SolarGators::Drivers::PitComms pit(&rfd);
 SolarGators::Drivers::LTC2630 accel(&hspi2, Accel_CS_GPIO_Port, Accel_CS_Pin, SolarGators::Drivers::OperatingMode::Bit8);
 SolarGators::Drivers::LTC2630 regen(&hspi2, Regen_CS_GPIO_Port, Regen_CS_Pin, SolarGators::Drivers::OperatingMode::Bit8);
 
+// Mitsuba Controls
+SolarGators::Drivers::LED eco("Eco Enable", Eco_En_GPIO_Port, Eco_En_Pin);
+
 // IMU
 LSM6DSR_IO_t imu_bus =
     {
@@ -54,6 +58,7 @@ LSM6DSR_Object_t imu;
 // TODO: Steering
 SolarGators::DataModules::FrontLights FLights;
 SolarGators::DataModules::RearLights RLights;
+SolarGators::DataModules::Steering Steering;
 SolarGators::DataModules::MitsubaRequest Motor_Tx(SolarGators::DataModuleInfo::MOTORTX_RL_MSG_ID);
 
 // Objects that we will want to send data to the pit on
