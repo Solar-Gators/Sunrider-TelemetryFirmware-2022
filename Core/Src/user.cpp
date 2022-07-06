@@ -35,7 +35,7 @@ osTimerAttr_t speed_control_timer_attr =
 {
     .name = "Speed"
 };
-static constexpr uint32_t speed_control_period = 100;
+static constexpr uint32_t speed_control_period = 10;
 static constexpr float Pgain=1275;  // proportional control gain
 static constexpr float Igain=2;     // integral control gain
 static constexpr float Dgain=50;    // derivative control gain
