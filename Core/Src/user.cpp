@@ -115,10 +115,18 @@ void SendCanMsgs()
 void SendTelemetryData()
 {
   pit.SendDataModule(Motor_Rx_0);
+  pit.SendDataModule(Motor_Rx_1);
+  pit.SendDataModule(Motor_Rx_2);
+
   pit.SendDataModule(BMS_Rx_0);
+  pit.SendDataModule(BMS_Rx_1);
+  pit.SendDataModule(BMS_Rx_2);
+  pit.SendDataModule(BMS_Rx_3);
   pit.SendDataModule(BMS_Rx_4);
-//  TEST = BMS_Rx_0.getAvgCellVolt();
-//  TEST = BMS_Rx_4.getPackSoc();
+  pit.SendDataModule(BMS_Rx_5);
+
+  pit.SendDataModule(FLights);
+  pit.SendDataModule(RLights);
 }
 
 void UpdateThrottle()
