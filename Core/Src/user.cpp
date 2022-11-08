@@ -44,6 +44,7 @@ SolarGators::Drivers::PID regen_controller(Pgain, Igain, Dgain, speed_control_pe
 
 void CPP_UserSetup(void)
 {
+	//the below code initializes but doesn't actually add them to scheduler yet
   // Initialize routine that sends telemetry data
   telem_tx_timer_id = osTimerNew((osThreadFunc_t)SendTelemetryData, osTimerPeriodic, NULL, &telem_tx_timer_attr);
   if (telem_tx_timer_id == NULL)
@@ -76,6 +77,7 @@ void CPP_UserSetup(void)
 //    Error_Handler();
 //  }
   // Front Lights (for throttle)
+  //we add these modules to the etl map, binds can id and actual module together
   CANController.AddRxModule(&FLights);
   CANController.AddRxModule(&RLights);
   // Mitsuba Stuff

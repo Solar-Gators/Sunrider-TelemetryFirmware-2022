@@ -62,6 +62,8 @@ void Error_Handler(void);
 #define Error_GPIO_Port GPIOC
 #define Board_OK_Pin GPIO_PIN_14
 #define Board_OK_GPIO_Port GPIOC
+#define CAN_ERROR_Pin GPIO_PIN_15
+#define CAN_ERROR_GPIO_Port GPIOC
 #define INT_IMU_Pin GPIO_PIN_2
 #define INT_IMU_GPIO_Port GPIOB
 #define Eco_En_Pin GPIO_PIN_12
