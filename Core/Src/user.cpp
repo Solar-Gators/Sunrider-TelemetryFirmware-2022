@@ -95,7 +95,7 @@ void CPP_UserSetup(void)
   CANController.Init();
   // Start Timers
   osTimerStart(telem_tx_timer_id, 1000);  // Pit Transmission
-  osTimerStart(can_tx_timer_id, 5000);    // CAN Tx Transmission
+  osTimerStart(can_tx_timer_id, 2000);    // CAN Tx Transmission
   // Initialize DACs
   accel.SetRefVcc();
   regen.SetRefVcc();
@@ -169,3 +169,4 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
   CANController.SetRxFlag();
   HAL_CAN_DeactivateNotification(hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
 }
+
