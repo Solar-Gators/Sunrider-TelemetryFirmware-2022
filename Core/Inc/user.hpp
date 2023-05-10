@@ -25,6 +25,7 @@
 #include "OrionBMS.hpp"
 #include "Proton1.hpp"
 #include "Mitsuba.hpp"
+#include "PowerBoard.hpp"
 
 extern CAN_HandleTypeDef hcan;
 extern UART_HandleTypeDef huart2;
@@ -59,6 +60,7 @@ LSM6DSR_Object_t imu;
 SolarGators::DataModules::FrontLights FLights;
 SolarGators::DataModules::RearLights RLights;
 SolarGators::DataModules::Steering Steering;
+SolarGators::DataModules::PowerBoard Pboard(SolarGators::DataModuleInfo::POWER_BOARD_ID, 0);
 SolarGators::DataModules::MitsubaRequest Motor_Tx(SolarGators::DataModuleInfo::MOTORTX_RL_MSG_ID);
 
 // Objects that we will want to send data to the pit on
@@ -75,5 +77,7 @@ SolarGators::DataModules::MitsubaRx2 Motor_Rx_2(SolarGators::DataModuleInfo::MOT
 // TODO: Mppt1
 // TODO: Mppt2
 // TODO: Mppt3
+
+//bool CANStatusFlag = false;
 
 #endif
