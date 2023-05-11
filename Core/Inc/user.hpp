@@ -26,6 +26,7 @@
 #include "Proton1.hpp"
 #include "Mitsuba.hpp"
 #include "PowerBoard.hpp"
+#include "Mppt.hpp"
 
 extern CAN_HandleTypeDef hcan;
 extern UART_HandleTypeDef huart2;
@@ -74,9 +75,13 @@ SolarGators::DataModules::OrionBMSRx5 BMS_Rx_5(SolarGators::DataModuleInfo::BMS_
 SolarGators::DataModules::MitsubaRx0 Motor_Rx_0(SolarGators::DataModuleInfo::MOTORRX0_RL_MSG_ID, 0x04);
 SolarGators::DataModules::MitsubaRx1 Motor_Rx_1(SolarGators::DataModuleInfo::MOTORRX1_RL_MSG_ID, 0x04);
 SolarGators::DataModules::MitsubaRx2 Motor_Rx_2(SolarGators::DataModuleInfo::MOTORRX2_RL_MSG_ID, 0x04);
-// TODO: Mppt1
-// TODO: Mppt2
-// TODO: Mppt3
+
+//There are several datamodules for each MPPT with their unique CAN ID's, so we'll have 5 for each
+SolarGators::DataModules::Mpptx0 MPPT0_Rx_0(SolarGators::DataModuleInfo::MPPT0_MSG_ID);
+SolarGators::DataModules::Mpptx1 MPPT0_Rx_1(SolarGators::DataModuleInfo::MPPT0_MSG_ID + 1);
+SolarGators::DataModules::Mpptx2 MPPT0_Rx_2(SolarGators::DataModuleInfo::MPPT0_MSG_ID + 2);
+SolarGators::DataModules::Mpptx3 MPPT0_Rx_3(SolarGators::DataModuleInfo::MPPT0_MSG_ID + 3);
+SolarGators::DataModules::Mpptx4 MPPT0_Rx_4(SolarGators::DataModuleInfo::MPPT0_MSG_ID + 4);
 
 //bool CANStatusFlag = false;
 
