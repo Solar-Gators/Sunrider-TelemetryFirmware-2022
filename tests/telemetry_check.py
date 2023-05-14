@@ -45,7 +45,7 @@ while(1):
             can_id_recved.append(can_id)
             bytes_read = bytearray()
 
-            print(can_id_recved)
+            sys.stdout.write(can_id_recved)
             # If all can messages were sent
             if all(e in can_id_recved for e in can_ids):
                 sys.stdout.write("All can messages received")
