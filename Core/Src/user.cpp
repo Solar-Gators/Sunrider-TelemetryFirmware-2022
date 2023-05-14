@@ -102,11 +102,11 @@ void CPP_UserSetup(void)
   CANController.AddRxModule(&BMS_Rx_4);
   CANController.AddRxModule(&BMS_Rx_5);
   //MPPT Modules
-  CANController.AddRxModule(&MPPT0_Rx_0);
-  CANController.AddRxModule(&MPPT0_Rx_1);
-  CANController.AddRxModule(&MPPT0_Rx_2);
-  CANController.AddRxModule(&MPPT0_Rx_3);
-  CANController.AddRxModule(&MPPT0_Rx_4);
+  // CANController.AddRxModule(&MPPT0_Rx_0);
+  // CANController.AddRxModule(&MPPT0_Rx_1);
+  // CANController.AddRxModule(&MPPT0_Rx_2);
+  // CANController.AddRxModule(&MPPT0_Rx_3);
+  // CANController.AddRxModule(&MPPT0_Rx_4);
 
   // Ready CAN
   CANController.Init();
@@ -186,4 +186,3 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
   CANController.SetRxFlag();
   HAL_CAN_DeactivateNotification(hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
 }
-
