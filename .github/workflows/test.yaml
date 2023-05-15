@@ -51,8 +51,10 @@ jobs:
       - run: renode-test ${{ github.workspace }}/tests/*.robot
 
       - uses: actions/upload-artifact@v3
+        if: ${{ failure() || success() }}
         with:
           name: 'Reports'
           path: |
             ./*.html
             ./*.xml
+            ./logs/*.*
