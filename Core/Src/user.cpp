@@ -24,7 +24,15 @@ uint8_t CalcRegen(float* acceleration);
  * SendTelemetryData: Each period, sends out info from each data module to RFD900. It uses the Pitcomms
  * 						driver, and sends bytes over HUART module. Currently period is set to 1000
  *						OS Config name: telem_tx_timer_id
- * SendCanMsgs:		  Each period, sends out
+ * SendCanMsgs:		  Each period, sends out a request for motor controller data modules. Does this by sending
+ * 						three 1s over CAN to a specific address. Motor controller will respond over bus
+ * 						OS Config name: can_tx_timer_id
+ * UpdateThrottle: 	  Each period, checks adc for latest throttle value. As a critical thread, its got a very
+ * 						low period.
+ * 						OS Config name: speed_control_timer_id
+ * Calling CANController.init also initializes a thread
+ * HandleReceive: 	  Waits for a CAN receive event to run, updates the internal variables by
+ * 						calling the FromByteArray functions of the individual DataModule
  * */
 
 // OS Configs
@@ -102,12 +110,13 @@ void CPP_UserSetup(void)
   CANController.AddRxModule(&BMS_Rx_4);
   CANController.AddRxModule(&BMS_Rx_5);
   //MPPT Modules
+  /*
   CANController.AddRxModule(&MPPT0_Rx_0);
   CANController.AddRxModule(&MPPT0_Rx_1);
   CANController.AddRxModule(&MPPT0_Rx_2);
   CANController.AddRxModule(&MPPT0_Rx_3);
   CANController.AddRxModule(&MPPT0_Rx_4);
-
+*/
   // Ready CAN
   CANController.Init();
   // Start Timers
