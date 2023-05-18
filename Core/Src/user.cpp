@@ -111,13 +111,14 @@ void CPP_UserSetup(void)
   CANController.AddRxModule(&BMS_Rx_5);
   //MPPT Modules
 
-  CANController.AddRxModule(&MPPT0_Rx_0);
+  //CANController.AddRxModule(&MPPT0_Rx_0);
   /*
   CANController.AddRxModule(&MPPT0_Rx_1);
   CANController.AddRxModule(&MPPT0_Rx_2);
   CANController.AddRxModule(&MPPT0_Rx_3);
-  CANController.AddRxModule(&MPPT0_Rx_4);
   */
+  CANController.AddRxModule(&MPPT0_Rx_4);
+
   // Ready CAN
   CANController.Init();
   // Start Timers
@@ -156,6 +157,13 @@ void SendTelemetryData()
 
   pit.SendDataModule(FLights);
   pit.SendDataModule(RLights);
+
+  //We only need to post the first two MPPT modules at the most
+  pit.SendDataModule(MPPT0_Rx_0);
+  pit.SendDataModule(MPPT0_Rx_1);
+
+  //for debugging
+  pit.SendDataModule(MPPT0_Rx_4);
 }
 
 void UpdateThrottle()
