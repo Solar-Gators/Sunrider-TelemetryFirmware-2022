@@ -83,6 +83,18 @@ SolarGators::DataModules::Mpptx2 MPPT0_Rx_2(SolarGators::DataModuleInfo::MPPT0_M
 SolarGators::DataModules::Mpptx3 MPPT0_Rx_3(SolarGators::DataModuleInfo::MPPT0_MSG_ID + 3);
 SolarGators::DataModules::Mpptx4 MPPT0_Rx_4(SolarGators::DataModuleInfo::MPPT0_MSG_ID + 4);
 
+SolarGators::DataModules::Mpptx0 MPPT1_Rx_0(SolarGators::DataModuleInfo::MPPT1_MSG_ID);
+SolarGators::DataModules::Mpptx1 MPPT1_Rx_1(SolarGators::DataModuleInfo::MPPT1_MSG_ID + 1);
+SolarGators::DataModules::Mpptx2 MPPT1_Rx_2(SolarGators::DataModuleInfo::MPPT1_MSG_ID + 2);
+SolarGators::DataModules::Mpptx3 MPPT1_Rx_3(SolarGators::DataModuleInfo::MPPT1_MSG_ID + 3);
+SolarGators::DataModules::Mpptx4 MPPT1_Rx_4(SolarGators::DataModuleInfo::MPPT1_MSG_ID + 4);
+
+SolarGators::DataModules::Mpptx0 MPPT2_Rx_0(SolarGators::DataModuleInfo::MPPT2_MSG_ID);
+SolarGators::DataModules::Mpptx1 MPPT2_Rx_1(SolarGators::DataModuleInfo::MPPT2_MSG_ID + 1);
+SolarGators::DataModules::Mpptx2 MPPT2_Rx_2(SolarGators::DataModuleInfo::MPPT2_MSG_ID + 2);
+SolarGators::DataModules::Mpptx3 MPPT2_Rx_3(SolarGators::DataModuleInfo::MPPT2_MSG_ID + 3);
+SolarGators::DataModules::Mpptx4 MPPT2_Rx_4(SolarGators::DataModuleInfo::MPPT2_MSG_ID + 4);
+
 //bool CANStatusFlag = false;
 
 #endif
